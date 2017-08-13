@@ -62,7 +62,8 @@ end
 
 
 # Detect service provider
-if node['platform_family'] == 'rhel' && node['platform_version'] =~ /^7/
+if ( node['platform_family'] == 'rhel' && node['platform_version'] =~ /^7/ ) ||
+   ( node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 15.04 )
   service_provider = Chef::Provider::Service::Systemd
 else
   service_provider = Chef::Provider::Service::Upstart
